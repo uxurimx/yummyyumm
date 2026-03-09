@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dulcería Yummy Yumm 🍒 — Gomitas & Más</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cherry: #e8617a;
+    --cherry-dark: #c94160;
+    --rose: #f9a8b8;
+    --blush: #fde8ee;
+    --mint: #b8f0d8;
+    --mint-soft: #e0faf0;
+    --lemon: #fff3a3;
+    --lavender: #ddd0f7;
+    --sky: #c8e6f9;
+    --peach: #ffd4b0;
+    --cream: #fff8f2;
+    --dark: #2d1a24;
+    --mid: #6b3d52;
+    --text: #3a2030;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ===== CURSOR ===== */
+  body { cursor: none; }
+  .cursor {
+    width: 20px; height: 20px;
+    background: var(--cherry);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--cherry-dark);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ===== NOISE TEXTURE ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; width: 100%;
+    z-index: 500;
+    padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,248,242,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--rose);
+  }
+  .nav-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--cherry);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 0;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: var(--cherry);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cart {
+    background: var(--cherry);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: none;
+    transition: background 0.2s, transform 0.15s;
+    position: relative;
+  }
+  .nav-cart:hover { background: var(--cherry-dark); transform: scale(1.05); }
+  .cart-badge {
+    position: absolute; top: -6px; right: -6px;
+    background: var(--lemon); color: var(--dark);
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 800;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-blobs {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: blobFloat 8s ease-in-out infinite;
+  }
+  .blob-1 { width: 500px; height: 500px; background: var(--rose); top: -100px; right: -100px; animation-delay: 0s; }
+  .blob-2 { width: 350px; height: 350px; background: var(--mint); bottom: -50px; left: -50px; animation-delay: 2s; }
+  .blob-3 { width: 250px; height: 250px; background: var(--lemon); top: 50%; left: 30%; animation-delay: 4s; }
+  .blob-4 { width: 200px; height: 200px; background: var(--lavender); top: 20%; left: 20%; animation-delay: 6s; }
+
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(20px, -20px) scale(1.05); }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 600px; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--cherry);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.6s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--dark);
+    margin-bottom: 20px;
+    animation: fadeInUp 0.7s ease 0.1s both;
+  }
+  .hero-title span { color: var(--cherry); }
+  .hero-title .script {
+    font-family: 'Dancing Script', cursive;
+    color: var(--mid);
+    font-size: 1.2em;
+    display: block;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    animation: fadeInUp 0.7s ease 0.2s both;
+  }
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeInUp 0.7s ease 0.3s both;
+  }
+  .btn-primary {
+    background: var(--cherry);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    border: none;
+    cursor: none;
+    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 25px rgba(232,97,122,0.4);
+  }
+  .btn-primary:hover {
+    background: var(--cherry-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(232,97,122,0.5);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--cherry);
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 2.5px solid var(--cherry);
+    cursor: none;
+    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover {
+    background: var(--blush);
+    transform: translateY(-3px);
+  }
+
+  .hero-floaters {
+    position: absolute;
+    right: 5%; top: 50%; transform: translateY(-50%);
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    animation: fadeInUp 0.8s ease 0.4s both;
+  }
+  .float-card {
+    background: white;
+    border-radius: 24px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    border: 2px solid var(--rose);
+    transition: transform 0.3s;
+    animation: wiggle 4s ease-in-out infinite;
+  }
+  .float-card:nth-child(2) { animation-delay: 0.5s; margin-top: 24px; }
+  .float-card:nth-child(3) { animation-delay: 1s; margin-top: -12px; }
+  .float-card:nth-child(4) { animation-delay: 1.5s; }
+  .float-card:hover { transform: scale(1.08) rotate(-2deg); }
+  .float-card .emoji { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+  .float-card .label { font-weight: 800; font-size: 0.8rem; color: var(--mid); }
+  .float-card .sub { font-size: 0.7rem; color: #aaa; margin-top: 2px; }
+
+  @keyframes wiggle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== MARQUEE ===== */
+  .marquee-section {
+    background: var(--cherry);
+    padding: 14px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 48px;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 12px;
+    flex-shrink: 0;
+  }
+  .marquee-dot { color: var(--rose); font-size: 1.2rem; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ===== SECTIONS GENERAL ===== */
+  section { padding: 90px 60px; }
+  .section-tag {
+    display: inline-block;
+    background: var(--blush);
+    color: var(--cherry);
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+  .section-title span { color: var(--cherry); }
+  .section-sub {
+    color: var(--mid);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 50px;
+  }
+
+  /* ===== PRODUCTS ===== */
+  #productos { background: white; }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+  }
+  .product-card {
+    background: var(--cream);
+    border-radius: 28px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.35s;
+    cursor: none;
+    position: relative;
+  }
+  .product-card:hover {
+    border-color: var(--cherry);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(232,97,122,0.2);
+  }
+  .product-card-img {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--cherry);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+  .product-card-body { padding: 20px; }
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--dark);
+  }
+  .product-desc { font-size: 0.82rem; color: var(--mid); line-height: 1.5; margin-bottom: 14px; }
+  .product-flavors { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .flavor-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: none;
+    transition: transform 0.2s;
+    position: relative;
+  }
+  .flavor-dot:hover { transform: scale(1.3); }
+  .flavor-dot::after {
+    content: attr(data-flavor);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .flavor-dot:hover::after { opacity: 1; }
+  .product-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .product-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--cherry);
+  }
+  .product-price small { font-size: 0.8rem; color: var(--mid); font-family: 'Nunito', sans-serif; font-weight: 600; }
+  .add-btn {
+    background: var(--cherry);
+    color: white;
+    border: none;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: none;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .add-btn:hover { background: var(--cherry-dark); transform: rotate(90deg) scale(1.15); }
+
+  /* ===== PERSONALIZA TU PAQUETE ===== */
+  #personaliza { background: linear-gradient(135deg, var(--blush) 0%, white 60%, var(--mint-soft) 100%); }
+
+  .builder-container {
+    background: white;
+    border-radius: 36px;
+    padding: 48px;
+    box-shadow: 0 20px 80px rgba(232,97,122,0.12);
+    border: 2px solid var(--rose);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .builder-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: var(--cherry);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .builder-steps {
+    display: flex;
+    gap: 0;
+    margin-bottom: 36px;
+    background: var(--blush);
+    border-radius: 50px;
+    padding: 6px;
+  }
+  .builder-step-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    border-radius: 44px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.82rem;
+    color: var(--mid);
+    cursor: none;
+    transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .builder-step-btn.active {
+    background: var(--cherry);
+    color: white;
+    box-shadow: 0 4px 15px rgba(232,97,122,0.4);
+  }
+
+  .builder-panel { display: none; }
+  .builder-panel.active { display: block; animation: fadeInUp 0.4s ease; }
+  .builder-panel-title {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--dark);
+    margin-bottom: 18px;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+  }
+  .option-chip {
+    background: var(--cream);
+    border: 2.5px solid var(--rose);
+    border-radius: 16px;
+    padding: 14px 10px;
+    text-align: center;
+    cursor: none;
+    transition: all 0.25s;
+    user-select: none;
+  }
+  .option-chip:hover { border-color: var(--cherry); background: var(--blush); }
+  .option-chip.selected {
+    border-color: var(--cherry);
+    background: var(--cherry);
+    color: white;
+  }
+  .option-chip .chip-emoji { font-size: 1.8rem; display: block; margin-bottom: 4px; }
+  .option-chip .chip-name { font-size: 0.72rem; font-weight: 700; }
+
+  .size-options { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  .size-card {
+    flex: 1; min-width: 150px;
+    background: var(--cream);
+    border: 2.5px solid var(--rose);
+    border-radius: 20px;
+    padding: 22px 16px;
+    text-align: center;
+    cursor: none;
+    transition: all 0.25s;
+  }
+  .size-card:hover, .size-card.selected {
+    border-color: var(--cherry);
+    background: var(--blush);
+  }
+  .size-card.selected { background: var(--cherry); color: white; }
+  .size-card .size-icon { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+  .size-card .size-name { font-weight: 800; font-size: 0.95rem; }
+  .size-card .size-qty { font-size: 0.75rem; margin-top: 4px; opacity: 0.7; }
+  .size-card .size-price { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--cherry); margin-top: 6px; }
+  .size-card.selected .size-price { color: var(--lemon); }
+
+  .summary-box {
+    background: var(--blush);
+    border-radius: 20px;
+    padding: 24px;
+    margin-top: 28px;
+    border: 2px dashed var(--rose);
+  }
+  .summary-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+    color: var(--dark);
+  }
+  .summary-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .summary-list li {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.88rem;
+    color: var(--mid);
+    font-weight: 600;
+  }
+  .summary-list li .tag {
+    background: var(--cherry);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+  .summary-price {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 2px solid var(--rose);
+  }
+  .summary-price .total-label { font-weight: 700; font-size: 0.9rem; color: var(--mid); }
+  .summary-price .total-amount { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--cherry); }
+
+  .builder-nav { display: flex; gap: 12px; margin-top: 28px; justify-content: space-between; }
+  .btn-builder-prev {
+    background: transparent; border: 2.5px solid var(--rose);
+    color: var(--mid); padding: 12px 28px; border-radius: 40px;
+    font-family: 'Nunito', sans-serif; font-weight: 800;
+    cursor: none; transition: all 0.2s;
+  }
+  .btn-builder-prev:hover { border-color: var(--cherry); color: var(--cherry); }
+  .btn-builder-next {
+    background: var(--cherry); border: none;
+    color: white; padding: 12px 32px; border-radius: 40px;
+    font-family: 'Nunito', sans-serif; font-weight: 800;
+    cursor: none; transition: all 0.2s;
+    box-shadow: 0 6px 20px rgba(232,97,122,0.35);
+  }
+  .btn-builder-next:hover { background: var(--cherry-dark); transform: translateY(-2px); }
+
+  /* ===== SABORES ===== */
+  #sabores { background: var(--cream); }
+  .flavors-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+  }
+  .flavor-card {
+    border-radius: 28px;
+    padding: 28px 16px;
+    text-align: center;
+    transition: all 0.35s;
+    cursor: none;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .flavor-card:hover {
+    transform: translateY(-8px) rotate(-2deg);
+    border-color: rgba(255,255,255,0.5);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+  }
+  .flavor-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+    border-radius: 26px;
+  }
+  .flavor-emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
+  .flavor-name { font-weight: 800; font-size: 0.95rem; color: var(--dark); }
+  .flavor-heat {
+    display: flex; justify-content: center; gap: 2px;
+    margin-top: 6px;
+  }
+  .heat-icon { font-size: 0.7rem; }
+
+  /* ===== ENVÍOS ===== */
+  #envios { background: white; }
+  .shipping-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+  }
+  .shipping-card {
+    background: var(--cream);
+    border-radius: 28px;
+    padding: 32px 28px;
+    border: 2px solid var(--rose);
+    transition: all 0.3s;
+  }
+  .shipping-card:hover {
+    border-color: var(--cherry);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 45px rgba(232,97,122,0.12);
+  }
+  .shipping-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .shipping-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--dark); }
+  .shipping-card p { font-size: 0.85rem; color: var(--mid); line-height: 1.6; margin-bottom: 12px; }
+  .shipping-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--cherry);
+  }
+  .shipping-badge {
+    display: inline-block;
+    background: var(--mint);
+    color: #2d7a5a;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  /* ===== PEDIDO WHATSAPP ===== */
+  #pedido {
+    background: linear-gradient(135deg, var(--cherry) 0%, var(--cherry-dark) 100%);
+    text-align: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  #pedido::before {
+    content: '🍒🍬🍒🍬🍒🍬🍒🍬🍒🍬🍒🍬🍒🍬🍒🍬';
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.08;
+    top: 10px; left: 0; right: 0;
+    letter-spacing: 8px;
+    pointer-events: none;
+  }
+  #pedido .section-title { color: white; }
+  #pedido .section-sub { color: rgba(255,255,255,0.8); margin: 0 auto 40px; }
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #25d366;
+    color: white;
+    padding: 18px 40px;
+    border-radius: 60px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-decoration: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    margin-bottom: 20px;
+  }
+  .whatsapp-btn:hover { transform: scale(1.06) translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,0.3); }
+  .order-note { color: rgba(255,255,255,0.7); font-size: 0.85rem; }
+
+  /* ===== CARRITO LATERAL ===== */
+  .cart-sidebar {
+    position: fixed;
+    right: -420px; top: 0; bottom: 0;
+    width: 400px;
+    background: white;
+    z-index: 800;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.15);
+    transition: right 0.4s cubic-bezier(0.23,1,0.32,1);
+    display: flex; flex-direction: column;
+    border-left: 2px solid var(--rose);
+  }
+  .cart-sidebar.open { right: 0; }
+  .cart-header {
+    padding: 24px;
+    border-bottom: 2px solid var(--blush);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cart-header h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--dark); }
+  .cart-close {
+    background: var(--blush); border: none;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: none;
+    transition: background 0.2s;
+  }
+  .cart-close:hover { background: var(--rose); }
+  .cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+  .cart-empty {
+    text-align: center; padding: 60px 20px;
+    color: var(--mid);
+  }
+  .cart-empty .emoji { font-size: 4rem; display: block; margin-bottom: 12px; }
+  .cart-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--blush);
+    animation: fadeInUp 0.3s ease;
+  }
+  .cart-item-emoji { font-size: 2.5rem; background: var(--cream); border-radius: 14px; padding: 8px; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-weight: 700; font-size: 0.9rem; color: var(--dark); }
+  .cart-item-price { color: var(--cherry); font-weight: 800; font-size: 0.85rem; }
+  .cart-item-remove {
+    background: none; border: none;
+    color: #ccc; font-size: 1.1rem;
+    cursor: none; transition: color 0.2s;
+  }
+  .cart-item-remove:hover { color: var(--cherry); }
+  .cart-footer {
+    padding: 24px;
+    border-top: 2px solid var(--blush);
+  }
+  .cart-total {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cart-total-label { font-weight: 700; color: var(--mid); }
+  .cart-total-amount { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--cherry); }
+  .btn-checkout {
+    width: 100%; background: var(--cherry); color: white;
+    border: none; padding: 16px; border-radius: 40px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
+    cursor: none; transition: all 0.2s;
+  }
+  .btn-checkout:hover { background: var(--cherry-dark); }
+
+  .cart-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 799;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(3px);
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    color: white;
+    padding: 50px 60px 30px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+  .footer-brand .footer-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--rose);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+  .footer-social { display: flex; gap: 12px; margin-top: 20px; }
+  .social-btn {
+    background: rgba(255,255,255,0.1);
+    border: none; border-radius: 50%;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1rem;
+    cursor: none; transition: all 0.2s; text-decoration: none;
+  }
+  .social-btn:hover { background: var(--cherry); transform: scale(1.15); }
+  footer h4 { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; color: var(--rose); }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  footer ul li a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  footer ul li a:hover { color: white; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--dark);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 900;
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    section { padding: 60px 24px; }
+    #hero { padding: 100px 24px 60px; flex-direction: column; }
+    .hero-floaters { position: static; transform: none; margin-top: 40px; }
+    .float-card:nth-child(2), .float-card:nth-child(3) { margin-top: 0; }
+    footer { padding: 40px 24px 24px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .builder-container { padding: 28px 20px; }
+    .cart-sidebar { width: 320px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Cart Overlay -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- Cart Sidebar -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>🛒 Tu Pedido</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <span class="emoji">🍬</span>
+      <p>Tu carrito está vacío.<br>¡Agrega tus favoritas!</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cartTotal">$0.00</span>
+    </div>
+    <button class="btn-checkout" onclick="checkoutWhatsapp()">
+      Pedir por WhatsApp 💬
+    </button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">🍒 Yummy Yumm</a>
+  <ul class="nav-links">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#personaliza">Personaliza</a></li>
+    <li><a href="#sabores">Sabores</a></li>
+    <li><a href="#envios">Envíos</a></li>
+    <li><a href="#pedido">Pedido</a></li>
+  </ul>
+  <button class="nav-cart" onclick="toggleCart()">
+    🛒 Carrito
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-tag">✨ Envíos a toda la ciudad</span>
+    <h1 class="hero-title">
+      <span class="script">dulces con</span>
+      mucho <span>amor</span> 🍒
+    </h1>
+    <p class="hero-sub">
+      Gomitas, enchilosas, con chile, azucaradas… cada mordida es una explosión de sabor. Hechas con amor, personalizadas para ti. 💕
+    </p>
+    <div class="hero-btns">
+      <a href="#productos" class="btn-primary">Ver Productos 🍬</a>
+      <a href="#personaliza" class="btn-secondary">Arma tu Paquete 🎁</a>
+    </div>
+  </div>
+  <div class="hero-floaters">
+    <div class="float-card">
+      <span class="emoji">🍒</span>
+      <div class="label">Gomitas Cereza</div>
+      <div class="sub">Favorita del mes</div>
+    </div>
+    <div class="float-card">
+      <span class="emoji">🌶️</span>
+      <div class="label">Enchilosas</div>
+      <div class="sub">Nivel: extremo</div>
+    </div>
+    <div class="float-card">
+      <span class="emoji">🎁</span>
+      <div class="label">Paquetes</div>
+      <div class="sub">Hazlo tú misma</div>
+    </div>
+    <div class="float-card">
+      <span class="emoji">🚀</span>
+      <div class="label">Envío rápido</div>
+      <div class="sub">Mismo día</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item"><span class="marquee-dot">✦</span> GOMITAS ARTESANALES</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> ENCHILOSAS EXTREMAS</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> PAQUETES PERSONALIZADOS</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> ENVÍO A DOMICILIO</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> REGALOS ÚNICOS</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> SABORES INCREÍBLES</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> GOMITAS ARTESANALES</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> ENCHILOSAS EXTREMAS</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> PAQUETES PERSONALIZADOS</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> ENVÍO A DOMICILIO</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> REGALOS ÚNICOS</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> SABORES INCREÍBLES</div>
+  </div>
+</div>
+
+<!-- PRODUCTOS -->
+<section id="productos">
+  <span class="section-tag">🍬 Nuestros Productos</span>
+  <h2 class="section-title">Lo que más <span>piden</span> 🔥</h2>
+  <p class="section-sub">Desde las clásicas de cereza hasta las mega enchilosas. Todas hechas con ingredientes de calidad y mucho amor.</p>
+
+  <div class="products-grid" id="productsGrid">
+    <!-- Products rendered by JS -->
+  </div>
+</section>
+
+<!-- PERSONALIZA -->
+<section id="personaliza">
+  <span class="section-tag">🎨 Hazlo tú misma</span>
+  <h2 class="section-title">Arma tu <span>paquete</span> ideal</h2>
+  <p class="section-sub">Elige el tamaño, los sabores, el nivel de chile y el tipo de dulce. Nosotros lo preparamos con amor. 💕</p>
+
+  <div class="builder-container">
+    <div class="builder-title">🍒 Constructor de Paquete</div>
+
+    <div class="builder-steps">
+      <button class="builder-step-btn active" data-step="1" onclick="goStep(1)">📦 Tamaño</button>
+      <button class="builder-step-btn" data-step="2" onclick="goStep(2)">🍬 Tipo</button>
+      <button class="builder-step-btn" data-step="3" onclick="goStep(3)">🎨 Sabores</button>
+      <button class="builder-step-btn" data-step="4" onclick="goStep(4)">🌶️ Nivel</button>
+      <button class="builder-step-btn" data-step="5" onclick="goStep(5)">✅ Resumen</button>
+    </div>
+
+    <!-- Step 1: Tamaño -->
+    <div class="builder-panel active" id="panel-1">
+      <div class="builder-panel-title">¿Qué tamaño quieres? 📦</div>
+      <div class="size-options">
+        <div class="size-card" onclick="selectSize(this, 'Mini', 10, 'Paquetito para antojitos', 25)">
+          <span class="size-icon">🎀</span>
+          <div class="size-name">Mini</div>
+          <div class="size-qty">~100g · 5 tipos</div>
+          <div class="size-price">$25</div>
+        </div>
+        <div class="size-card" onclick="selectSize(this, 'Mediano', 25, 'El más popular 🔥', 45)">
+          <span class="size-icon">🛍️</span>
+          <div class="size-name">Mediano</div>
+          <div class="size-qty">~250g · 8 tipos</div>
+          <div class="size-price">$45</div>
+        </div>
+        <div class="size-card" onclick="selectSize(this, 'Grande', 45, 'Para compartir (o no 😏)', 75)">
+          <span class="size-icon">📦</span>
+          <div class="size-name">Grande</div>
+          <div class="size-qty">~500g · 12 tipos</div>
+          <div class="size-price">$75</div>
+        </div>
+        <div class="size-card" onclick="selectSize(this, 'Mega', 75, 'Para fiestas 🎉', 120)">
+          <span class="size-icon">🎉</span>
+          <div class="size-name">Mega</div>
+          <div class="size-qty">~1kg · ilimitados</div>
+          <div class="size-price">$120</div>
+        </div>
+      </div>
+      <div class="builder-nav">
+        <div></div>
+        <button class="btn-builder-next" onclick="nextStep()">Siguiente → Tipo</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Tipo de dulce -->
+    <div class="builder-panel" id="panel-2">
+      <div class="builder-panel-title">¿Qué tipo de dulces? (puedes elegir varios) 🍬</div>
+      <div class="options-grid">
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Gomitas')">
+          <span class="chip-emoji">🐻</span><span class="chip-name">Gomitas</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Enchilosas')">
+          <span class="chip-emoji">🌶️</span><span class="chip-name">Enchilosas</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Azucaradas')">
+          <span class="chip-emoji">✨</span><span class="chip-name">Azucaradas</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Con Chile')">
+          <span class="chip-emoji">🔥</span><span class="chip-name">Con Chile</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Tamarindo')">
+          <span class="chip-emoji">🟤</span><span class="chip-name">Tamarindo</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Ácidas')">
+          <span class="chip-emoji">😝</span><span class="chip-name">Ácidas</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Rellenas')">
+          <span class="chip-emoji">💜</span><span class="chip-name">Rellenas</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Gajos')">
+          <span class="chip-emoji">🍋</span><span class="chip-name">Gajos</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'tipo', 'Paletas')">
+          <span class="chip-emoji">🍭</span><span class="chip-name">Paletas</span>
+        </div>
+      </div>
+      <div class="builder-nav">
+        <button class="btn-builder-prev" onclick="prevStep()">← Atrás</button>
+        <button class="btn-builder-next" onclick="nextStep()">Siguiente → Sabores</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Sabores -->
+    <div class="builder-panel" id="panel-3">
+      <div class="builder-panel-title">¿Cuáles sabores? 🎨</div>
+      <div class="options-grid">
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Cereza 🍒')">
+          <span class="chip-emoji">🍒</span><span class="chip-name">Cereza</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Sandía 🍉')">
+          <span class="chip-emoji">🍉</span><span class="chip-name">Sandía</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Mango 🥭')">
+          <span class="chip-emoji">🥭</span><span class="chip-name">Mango</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Fresa 🍓')">
+          <span class="chip-emoji">🍓</span><span class="chip-name">Fresa</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Limón 🍋')">
+          <span class="chip-emoji">🍋</span><span class="chip-name">Limón</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Uva 🍇')">
+          <span class="chip-emoji">🍇</span><span class="chip-name">Uva</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Naranja 🍊')">
+          <span class="chip-emoji">🍊</span><span class="chip-name">Naranja</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Piña 🍍')">
+          <span class="chip-emoji">🍍</span><span class="chip-name">Piña</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Durazno 🍑')">
+          <span class="chip-emoji">🍑</span><span class="chip-name">Durazno</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Cola 🥤')">
+          <span class="chip-emoji">🥤</span><span class="chip-name">Cola</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Mezcla 🌈')">
+          <span class="chip-emoji">🌈</span><span class="chip-name">Mezcla</span>
+        </div>
+        <div class="option-chip" onclick="toggleOption(this, 'sabor', 'Sorpréndeme ✨')">
+          <span class="chip-emoji">✨</span><span class="chip-name">Sorpresa</span>
+        </div>
+      </div>
+      <div class="builder-nav">
+        <button class="btn-builder-prev" onclick="prevStep()">← Atrás</button>
+        <button class="btn-builder-next" onclick="nextStep()">Siguiente → Nivel</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Nivel de chile -->
+    <div class="builder-panel" id="panel-4">
+      <div class="builder-panel-title">¿Qué tan picoso? 🌶️</div>
+      <div class="options-grid" style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));">
+        <div class="option-chip" onclick="selectSingle(this, 'nivel', 'Sin chile 😇')">
+          <span class="chip-emoji">😇</span><span class="chip-name">Sin chile</span>
+        </div>
+        <div class="option-chip" onclick="selectSingle(this, 'nivel', 'Suavecito 😊')">
+          <span class="chip-emoji">😊</span><span class="chip-name">Suavecito</span>
+        </div>
+        <div class="option-chip" onclick="selectSingle(this, 'nivel', 'Medio 😏')">
+          <span class="chip-emoji">😏</span><span class="chip-name">Medio</span>
+        </div>
+        <div class="option-chip" onclick="selectSingle(this, 'nivel', 'Picoso 🥵')">
+          <span class="chip-emoji">🥵</span><span class="chip-name">Picoso</span>
+        </div>
+        <div class="option-chip" onclick="selectSingle(this, 'nivel', 'EXTREMO 💀')">
+          <span class="chip-emoji">💀</span><span class="chip-name">EXTREMO</span>
+        </div>
+      </div>
+      <div class="builder-nav">
+        <button class="btn-builder-prev" onclick="prevStep()">← Atrás</button>
+        <button class="btn-builder-next" onclick="goStep(5)">Ver Resumen ✅</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Resumen -->
+    <div class="builder-panel" id="panel-5">
+      <div class="builder-panel-title">¡Tu paquete perfecto! 🎁</div>
+      <div class="summary-box">
+        <h4>📋 Resumen de tu pedido:</h4>
+        <ul class="summary-list" id="summaryList">
+          <li>Completa los pasos anteriores para ver tu resumen 🍬</li>
+        </ul>
+        <div class="summary-price">
+          <span class="total-label">Total estimado</span>
+          <span class="total-amount" id="summaryPrice">$0</span>
+        </div>
+      </div>
+      <div class="builder-nav">
+        <button class="btn-builder-prev" onclick="prevStep()">← Editar</button>
+        <button class="btn-builder-next" onclick="addCustomToCart()">🛒 Agregar al Carrito</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SABORES -->
+<section id="sabores">
+  <span class="section-tag">🌈 Sabores</span>
+  <h2 class="section-title">Todos nuestros <span>sabores</span></h2>
+  <p class="section-sub">Desde lo dulce hasta lo mega enchiloso. Cada sabor es una aventura.</p>
+
+  <div class="flavors-showcase">
+    <div class="flavor-card" style="background: #fde8ee;">
+      <span class="flavor-emoji">🍒</span>
+      <div class="flavor-name">Cereza</div>
+      <div class="flavor-heat"><span class="heat-icon">❤️</span><span class="heat-icon">❤️</span><span class="heat-icon">❤️</span></div>
+    </div>
+    <div class="flavor-card" style="background: #ffeef0;">
+      <span class="flavor-emoji">🍓</span>
+      <div class="flavor-name">Fresa</div>
+      <div class="flavor-heat"><span class="heat-icon">❤️</span><span class="heat-icon">❤️</span><span class="heat-icon">🤍</span></div>
+    </div>
+    <div class="flavor-card" style="background: #fff0e0;">
+      <span class="flavor-emoji">🥭</span>
+      <div class="flavor-name">Mango</div>
+      <div class="flavor-heat"><span class="heat-icon">🔥</span><span class="heat-icon">🔥</span><span class="heat-icon">🤍</span></div>
+    </div>
+    <div class="flavor-card" style="background: #e8ffe8;">
+      <span class="flavor-emoji">🍉</span>
+      <div class="flavor-name">Sandía</div>
+      <div class="flavor-heat"><span class="heat-icon">🔥</span><span class="heat-icon">🤍</span><span class="heat-icon">🤍</span></div>
+    </div>
+    <div class="flavor-card" style="background: #fffde0;">
+      <span class="flavor-emoji">🍋</span>
+      <div class="flavor-name">Limón</div>
+      <div class="flavor-heat"><span class="heat-icon">😝</span><span class="heat-icon">😝</span><span class="heat-icon">🤍</span></div>
+    </div>
+    <div class="flavor-card" style="background: #f0e8ff;">
+      <span class="flavor-emoji">🍇</span>
+      <div class="flavor-name">Uva</div>
+      <div class="flavor-heat"><span class="heat-icon">❤️</span><span class="heat-icon">🤍</span><span class="heat-icon">🤍</span></div>
+    </div>
+    <div class="flavor-card" style="background: #fff0e0;">
+      <span class="flavor-emoji">🍊</span>
+      <div class="flavor-name">Naranja</div>
+      <div class="flavor-heat"><span class="heat-icon">🔥</span><span class="heat-icon">🤍</span><span class="heat-icon">🤍</span></div>
+    </div>
+    <div class="flavor-card" style="background: #e8fff0;">
+      <span class="flavor-emoji">🍍</span>
+      <div class="flavor-name">Piña</div>
+      <div class="flavor-heat"><span class="heat-icon">😝</span><span class="heat-icon">🤍</span><span class="heat-icon">🤍</span></div>
+    </div>
+    <div class="flavor-card" style="background: #ffe8e0;">
+      <span class="flavor-emoji">🍑</span>
+      <div class="flavor-name">Durazno</div>
+      <div class="flavor-heat"><span class="heat-icon">❤️</span><span class="heat-icon">❤️</span><span class="heat-icon">🤍</span></div>
+    </div>
+    <div class="flavor-card" style="background: #e0e8ff;">
+      <span class="flavor-emoji">🫐</span>
+      <div class="flavor-name">Arándano</div>
+      <div class="flavor-heat"><span class="heat-icon">😝</span><span class="heat-icon">😝</span><span class="heat-icon">😝</span></div>
+    </div>
+    <div class="flavor-card" style="background: #ffe8f8;">
+      <span class="flavor-emoji">🌹</span>
+      <div class="flavor-name">Rosa</div>
+      <div class="flavor-heat"><span class="heat-icon">❤️</span><span class="heat-icon">❤️</span><span class="heat-icon">❤️</span></div>
+    </div>
+    <div class="flavor-card" style="background: #ffe0e0;">
+      <span class="flavor-emoji">🌶️</span>
+      <div class="flavor-name">Tamarindo</div>
+      <div class="flavor-heat"><span class="heat-icon">🔥</span><span class="heat-icon">🔥</span><span class="heat-icon">🔥</span></div>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:28px; color: var(--mid); font-size:0.85rem;">
+    ❤️ = dulce &nbsp;|&nbsp; 🔥 = con chile &nbsp;|&nbsp; 😝 = ácido
+  </p>
+</section>
+
+<!-- ENVÍOS -->
+<section id="envios">
+  <span class="section-tag">🚀 Envíos</span>
+  <h2 class="section-title">Tu pedido llega <span>volando</span></h2>
+  <p class="section-sub">Opciones de entrega para que no te quedes con las ganas.</p>
+
+  <div class="shipping-cards">
+    <div class="shipping-card">
+      <span class="shipping-icon">⚡</span>
+      <span class="shipping-badge">Más Popular</span>
+      <h3>Entrega Exprés</h3>
+      <p>Mismo día. Lo pediste, lo tienes. Disponible en un radio de hasta 5 km del centro.</p>
+      <div class="shipping-price">$35 MXN</div>
+    </div>
+    <div class="shipping-card">
+      <span class="shipping-icon">🏍️</span>
+      <span class="shipping-badge">Económico</span>
+      <h3>Entrega Estándar</h3>
+      <p>Entrega al día siguiente. Perfecto si no tienes prisa. Área metropolitana completa.</p>
+      <div class="shipping-price">$20 MXN</div>
+    </div>
+    <div class="shipping-card">
+      <span class="shipping-icon">🤝</span>
+      <span class="shipping-badge">Gratis</span>
+      <h3>Recoger en Punto</h3>
+      <p>Coordina punto de encuentro y recoge tu pedido sin costo adicional. ¡Dinos dónde!</p>
+      <div class="shipping-price">¡Gratis!</div>
+    </div>
+    <div class="shipping-card">
+      <span class="shipping-icon">🎁</span>
+      <span class="shipping-badge">Especial</span>
+      <h3>Entrega con Sorpresa</h3>
+      <p>Le ponemos tarjetita y empaque especial. Ideal para regalar. El detalle que faltaba. 💕</p>
+      <div class="shipping-price">+$25 MXN</div>
+    </div>
+  </div>
+</section>
+
+<!-- PEDIDO / CTA -->
+<section id="pedido">
+  <span class="section-tag" style="background:rgba(255,255,255,0.2); color:white;">💬 Pide Ahora</span>
+  <h2 class="section-title">¿Lista para <span style="color:var(--lemon);">pedir?</span> 🍒</h2>
+  <p class="section-sub">Escríbenos por WhatsApp y te atendemos al momento. ¡No dejamos a nadie sin su dosis de dulce!</p>
+  <a href="https://wa.me/521XXXXXXXXXX?text=Hola!%20quiero%20hacer%20un%20pedido%20%F0%9F%8D%92" class="whatsapp-btn" target="_blank">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Pedir por WhatsApp
+  </a>
+  <p class="order-note">📲 También por Instagram DM · Respondemos rápido 💬</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="footer-logo">🍒 Yummy Yumm</span>
+      <p>Gomitas, enchilosas y dulces artesanales hechos con amor. Cada paquete es único, como tú. 💕</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#" title="TikTok">🎵</a>
+        <a class="social-btn" href="#" title="Instagram">📸</a>
+        <a class="social-btn" href="#" title="WhatsApp">💬</a>
+        <a class="social-btn" href="#" title="Facebook">👍</a>
+      </div>
+    </div>
+    <div>
+      <h4>Productos</h4>
+      <ul>
+        <li><a href="#productos">Gomitas</a></li>
+        <li><a href="#productos">Enchilosas</a></li>
+        <li><a href="#productos">Paquetes</a></li>
+        <li><a href="#personaliza">Personalizado</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#envios">Envíos</a></li>
+        <li><a href="#sabores">Sabores</a></li>
+        <li><a href="#pedido">Hacer Pedido</a></li>
+        <li><a href="#">Preguntas Frecuentes</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Yummy Yumm · Dulces Artesanales 🍒 · Hecho con mucho amor 💕</p>
+    <p>Envíos locales disponibles</p>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">🍒 ¡Agregado al carrito!</div>
+
+<script>
+// ===== CURSOR =====
+const cursor = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursorDot');
+let cx = 0, cy = 0, dx = 0, dy = 0;
+
+document.addEventListener('mousemove', e => {
+  dx = e.clientX; dy = e.clientY;
+  cursorDot.style.left = dx - 3 + 'px';
+  cursorDot.style.top = dy - 3 + 'px';
+});
+
+function animateCursor() {
+  cx += (dx - cx) * 0.15;
+  cy += (dy - cy) * 0.15;
+  cursor.style.left = cx - 10 + 'px';
+  cursor.style.top = cy - 10 + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('button, a, .option-chip, .size-card, .product-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2)');
+  el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+});
+
+// ===== PRODUCTS DATA =====
+const products = [
+  {
+    id: 1, name: 'Gomitas de Cereza', emoji: '🍒',
+    desc: 'Las favoritas del mes. Suaves, jugosas y con ese sabor a cereza que no te puedes resistir.',
+    price: 35, unit: 'bolsa 150g',
+    colors: ['#e8617a','#c94160','#f9a8b8'],
+    flavors: ['Cereza dulce','Cereza ácida','Cereza enchilada'],
+    badge: '🔥 TOP',
+    bg: '#fde8ee'
+  },
+  {
+    id: 2, name: 'Mix Enchiloso', emoji: '🌶️',
+    desc: 'Combinación perfecta de gomitas con chile en polvo. Para los valientes. ¡Atrévete!',
+    price: 40, unit: 'bolsa 150g',
+    colors: ['#ff6b35','#e8617a','#ffd700'],
+    flavors: ['Mango enchilado','Sandía enchilada','Tamarindo'],
+    badge: '💀 EXTREMO',
+    bg: '#ffe0d0'
+  },
+  {
+    id: 3, name: 'Gomitas Azucaradas', emoji: '✨',
+    desc: 'Cubiertas de azúcar brillante. Dulces, coloridas y perfectas para quien no le gusta el picante.',
+    price: 30, unit: 'bolsa 150g',
+    colors: ['#b8f0d8','#ffd4b0','#ddd0f7'],
+    flavors: ['Fresa','Uva','Naranja','Piña'],
+    badge: null,
+    bg: '#f0f8ff'
+  },
+  {
+    id: 4, name: 'Paquete Especial 🎁', emoji: '🎀',
+    desc: 'Selección curada de los mejores sabores. Presentación especial para regalar. ¡Con tarjetita!',
+    price: 75, unit: 'caja 300g',
+    colors: ['#e8617a','#ddd0f7','#b8f0d8','#ffd4b0'],
+    flavors: ['Cereza','Mango','Fresa','Limón','+ sorpresa'],
+    badge: '💕 REGALO',
+    bg: '#fff0f5'
+  },
+  {
+    id: 5, name: 'Gajos de Limón', emoji: '🍋',
+    desc: 'El clásico de toda la vida. Gajos en forma de naranja con sabor a limón súper ácido.',
+    price: 28, unit: 'bolsa 100g',
+    colors: ['#fffaaa','#d4ef00','#fff3a3'],
+    flavors: ['Limón ácido','Limón enchilado','Limón azúcar'],
+    badge: '😝 ÁCIDO',
+    bg: '#fffff0'
+  },
+  {
+    id: 6, name: 'Mix Tamarindo', emoji: '🟤',
+    desc: 'Pulpa de tamarindo, bolitas, cubiertos... lo mejor del tamarindo en un solo paquete.',
+    price: 38, unit: 'bolsa 150g',
+    colors: ['#8B4513','#D2691E','#FF8C00'],
+    flavors: ['Pulpa','Bolitas','Cubiertos','Enchilados'],
+    badge: null,
+    bg: '#fff5e0'
+  }
+];
+
+// ===== CART =====
+let cart = [];
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = products.map(p => `
+    <div class="product-card">
+      <div class="product-card-img" style="background:${p.bg}">
+        <span style="font-size:5rem">${p.emoji}</span>
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+      </div>
+      <div class="product-card-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-flavors">
+          ${p.colors.map((c,i) => `<div class="flavor-dot" style="background:${c}" data-flavor="${p.flavors[i]||''}"></div>`).join('')}
+        </div>
+        <div class="product-footer">
+          <div class="product-price">$${p.price} <small>/ ${p.unit}</small></div>
+          <button class="add-btn" onclick="addToCart(${p.id})">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  const existing = cart.find(x => x.id === id);
+  if (existing) existing.qty++;
+  else cart.push({...p, qty: 1});
+  updateCart();
+  showToast(`${p.emoji} ¡${p.name} agregado!`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(x => x.id !== id);
+  updateCart();
+}
+
+function updateCart() {
+  const badge = document.getElementById('cartBadge');
+  const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  const count = cart.reduce((s, x) => s + x.qty, 0);
+  badge.textContent = count;
+
+  document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
+
+  const itemsEl = document.getElementById('cartItems');
+  if (!cart.length) {
+    itemsEl.innerHTML = `<div class="cart-empty"><span class="emoji">🍬</span><p>Tu carrito está vacío.<br>¡Agrega tus favoritas!</p></div>`;
+    return;
+  }
+  itemsEl.innerHTML = cart.map(x => `
+    <div class="cart-item">
+      <div class="cart-item-emoji">${x.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${x.name} ×${x.qty}</div>
+        <div class="cart-item-price">$${(x.price * x.qty).toFixed(2)}</div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart(${x.id})">✕</button>
+    </div>
+  `).join('');
+}
+
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+function closeCart() {
+  document.getElementById('cartSidebar').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+}
+
+function checkoutWhatsapp() {
+  if (!cart.length) { showToast('🍬 Tu carrito está vacío'); return; }
+  let msg = 'Hola! Quiero hacer un pedido 🍒:\n\n';
+  cart.forEach(x => { msg += `• ${x.emoji} ${x.name} ×${x.qty} = $${(x.price*x.qty).toFixed(2)}\n`; });
+  msg += `\n💰 Total: $${cart.reduce((s,x)=>s+x.price*x.qty,0).toFixed(2)} MXN`;
+  window.open(`https://wa.me/521XXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ===== BUILDER =====
+let currentStep = 1;
+let selection = { size: null, sizePrice: 0, tipos: [], sabores: [], nivel: null };
+
+function goStep(n) {
+  currentStep = n;
+  document.querySelectorAll('.builder-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`panel-${n}`).classList.add('active');
+  document.querySelectorAll('.builder-step-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.step) === n);
+  });
+  if (n === 5) renderSummary();
+}
+function nextStep() { if (currentStep < 5) goStep(currentStep + 1); }
+function prevStep() { if (currentStep > 1) goStep(currentStep - 1); }
+
+function selectSize(el, name, qty, desc, price) {
+  document.querySelectorAll('.size-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selection.size = `${name} (~${qty}g) — ${desc}`;
+  selection.sizePrice = price;
+}
+
+function toggleOption(el, type, value) {
+  el.classList.toggle('selected');
+  const arr = type === 'tipo' ? selection.tipos : selection.sabores;
+  const idx = arr.indexOf(value);
+  if (idx === -1) arr.push(value);
+  else arr.splice(idx, 1);
+}
+
+function selectSingle(el, type, value) {
+  el.closest('.options-grid').querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selection[type] = value;
+}
+
+function renderSummary() {
+  const list = document.getElementById('summaryList');
+  const price = document.getElementById('summaryPrice');
+  const items = [
+    selection.size ? `<li>📦 <span class="tag">Tamaño</span> ${selection.size}</li>` : '',
+    selection.tipos.length ? `<li>🍬 <span class="tag">Tipos</span> ${selection.tipos.join(', ')}</li>` : '',
+    selection.sabores.length ? `<li>🎨 <span class="tag">Sabores</span> ${selection.sabores.join(', ')}</li>` : '',
+    selection.nivel ? `<li>🌶️ <span class="tag">Chile</span> ${selection.nivel}</li>` : '',
+  ].filter(Boolean).join('');
+  list.innerHTML = items || '<li>Regresa a los pasos anteriores para personalizar tu paquete 🍬</li>';
+  price.textContent = `$${selection.sizePrice || 0}`;
+}
+
+function addCustomToCart() {
+  if (!selection.size) { showToast('⚠️ Elige un tamaño primero'); goStep(1); return; }
+  cart.push({
+    id: Date.now(),
+    name: `Paquete Personalizado (${selection.size.split(' ')[0]})`,
+    emoji: '🎁',
+    price: selection.sizePrice,
+    qty: 1,
+    custom: true
+  });
+  updateCart();
+  showToast('🎁 ¡Paquete personalizado agregado!');
+  // Reset
+  selection = { size: null, sizePrice: 0, tipos: [], sabores: [], nivel: null };
+  document.querySelectorAll('.size-card, .option-chip').forEach(c => c.classList.remove('selected'));
+  goStep(1);
+  toggleCart();
+}
+
+// ===== INIT =====
+renderProducts();
+</script>
+</body>
+</html>
